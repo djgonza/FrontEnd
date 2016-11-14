@@ -1,0 +1,309 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+
+var contadorIds = 0;
+
+function downloadImgs () {
+	
+	var imagenes = $(".cloud-zoom-gallery-hover");
+
+	for (var i = 0; i < imagenes.length; i++) {
+		
+		var dataImg = imagenes[i].href.split("/").pop().split("_")[0] + "_" + i;
+
+		var a = document.createElement('a');
+		a.href = imagenes[i].href;
+		a.download = dataImg;
+		a.text = "aaa";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+	}
+
+}
+
+function getArticulos (url) {
+
+	$.ajax({
+		url: url,
+		type:'GET',
+		success: function(data){
+				//traemos la data
+				data = String(data)
+						.split('<tr class="mainProduct">')[1]
+						.split("</tr>")[0];
+
+		   $("#elemento").append(data);
+
+		}
+	});
+
+}
+
+function sql (titulo) {
+
+	//el 4 titulo es titulo_url!!!!!!!!!!!!!!!
+	//ir sumando a contador ids
+
+	$("#resultado").text('INSERT INTO `eov3_posts`(`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES ('+contadorIds+',1,now(),now(),'+titulo+','+titulo+','+titulo+',"publish","open","closed","",'+titulo+'"","",now(),now(),"",0,"http://wordpressdj.esy.es/?post_type=product&#038;p=34",0,"product","",0)');
+
+}
+
+
+
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="elemento"></div>
+	<div id="resultado"></div>
+</body>
+</html>
+
+<!--INSERT INTO `eov3_posts`(`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) 
+VALUES 
+(null,
+1,
+now(),
+now(),
+"Titulo",
+"Titulo",
+"Titulo",
+"publish",
+"open",
+"closed",
+"",
+"titulo-url",
+"",
+"",
+now(),
+now(),
+"",
+0,
+"http://wordpressdj.esy.es/?post_type=product&#038;p=34",
+0,
+"product",
+"",
+0)-->
+
+
+
+<!--INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_edit_last",
+1)
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_edit_lock",
+1:1)
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_visibility",
+"visible")
+ 
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_stock_status",
+"instock")
+  
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_thumbnail_id",
+"")
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"total_sales",
+0) 
+  
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_downloadable",
+"no")
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_virtual",
+"no")
+  
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_tax_status",
+"taxable") 
+
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_tax_class",
+"") 
+  
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_purchase_note",
+"")
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_featured",
+"no")
+ 
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_weight",
+"")
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_length",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_width",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_height",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_sku",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_product_attributes",
+"a:0:{}") 
+  
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_regular_price",
+"20,99")  
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_sale_price",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_sale_price_dates_from",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_sale_price_dates_to",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_price",
+"20,99") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_sold_individually",
+"") 
+    
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_manage_stock",
+"no") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_backorders",
+"no")  
+  
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_stock",
+"") 
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_upsell_ids",
+"a:0:{}")  
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_crosssell_ids",
+"a:0:{}")  
+
+INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
+VALUES 
+(null,
+"postId",
+"_product_version",
+"2.6.8") -->
+
+<!-- http://www.c-and-a.com/ -->
+
