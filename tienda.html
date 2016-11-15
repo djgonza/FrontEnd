@@ -2,23 +2,16 @@
 <script>
 
 var contadorIds = 0;
+var links = [];
 
-function downloadImgs () {
+function downloadImgs (etiqueta) {
 	
-	var imagenes = $(".cloud-zoom-gallery-hover");
-
-	for (var i = 0; i < imagenes.length; i++) {
-		
-		var dataImg = imagenes[i].href.split("/").pop().split("_")[0] + "_" + i;
-
-		var a = document.createElement('a');
-		a.href = imagenes[i].href;
-		a.download = dataImg;
-		a.text = "aaa";
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
-	}
+	var a = document.createElement('a');
+	a.href = etiqueta.href;
+	a.download = etiqueta.href;
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
 
 }
 
@@ -28,28 +21,94 @@ function getArticulos (url) {
 		url: url,
 		type:'GET',
 		success: function(data){
-				//traemos la data
-				data = String(data)
-						.split('<tr class="mainProduct">')[1]
-						.split("</tr>")[0];
 
-		   $("#elemento").append(data);
+				//traemos la data
+				var parseData = String(data)
+						.split('<div class="productImageZoomThumbnails">')[1]
+						.split('<div class="productImageZoomLayerCenter">')[0];
+
+		   $("#elemento").html(parseData);
+		   for (var i = 0; i < $(".imageItem").length; i++) {
+		   		downloadImgs ($(".imageItem a")[i]);
+		   }
+
+		   titleData = String(data)
+						.split('<h1 itemprop="name">')[1]
+						.split('</h1>')[0];
+		   
+		   priceData = String(data)
+						.split('<span data-sc-regularprice="true" itemprop="price">')[1]
+						.split('</span>')[0];
+
+			sql(titleData, priceData);
 
 		}
 	});
 
 }
 
-function sql (titulo) {
+function sql (titulo, precio) {
 
 	//el 4 titulo es titulo_url!!!!!!!!!!!!!!!
 	//ir sumando a contador ids
 
-	$("#resultado").text('INSERT INTO `eov3_posts`(`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES ('+contadorIds+',1,now(),now(),'+titulo+','+titulo+','+titulo+',"publish","open","closed","",'+titulo+'"","",now(),now(),"",0,"http://wordpressdj.esy.es/?post_type=product&#038;p=34",0,"product","",0)');
+	$("#resultado").append('INSERT INTO `eov3_posts`(`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES ('+contadorIds+',1,now(),now(),'+titulo+','+titulo+','+titulo+',"publish","open","closed","",'+titulo+'"","",now(),now(),"",0,"http://wordpressdj.esy.es/?post_type=product&#038;p=34",0,"product","",0)');
+
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_edit_last",1)');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_edit_lock",1:1)');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_visibility","visible")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_stock_status","instock"');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_thumbnail_id","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"total_sales",0)');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_downloadable","no")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_virtual","no")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_tax_status","taxable"');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_tax_class","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_purchase_note","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_featured","no")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_weight","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_length","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_width","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_height","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sku","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_product_attributes","a:0:{}")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_regular_price",'+precio+') ');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sale_price","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sale_price_dates_from","") ');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_price",'+precio+')');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sold_individually","")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_manage_stock","no") ');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_backorders","no") ');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_stock","") ');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_upsell_ids","a:0:{}") ');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_crosssell_ids","a:0:{}")');
+	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_product_version","2.6.8")');
 
 }
 
+function getLinks (url) {
 
+	$.ajax({
+		url: url,
+		type:'GET',
+		success: function(data){
+				//traemos la data
+				data = String(data)
+						.split('<div class="productlist clearfix" id="productlistDiv">')[1]
+						.split('<div class="pagination">')[0];
+
+		   $("#urls").append(data).hide();
+		   for (var i = 0; i < $(".productLink").length; i+=2) {
+		   		links.push($(".productLink")[i].href);
+		   		getArticulos ($(".productLink")[i].href);
+		   		if(i> 10) return;
+		   }
+		}
+	});
+
+}
+
+getLinks("http://www.c-and-a.com/es/es/shop/mujer/chaquetas-y-abrigos/ver-todo");
 
 </script>
 
@@ -60,6 +119,7 @@ function sql (titulo) {
 	<title>Document</title>
 </head>
 <body>
+	<div id="urls"></div>
 	<div id="elemento"></div>
 	<div id="resultado"></div>
 </body>
@@ -306,4 +366,3 @@ VALUES
 "2.6.8") -->
 
 <!-- http://www.c-and-a.com/ -->
-
