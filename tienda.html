@@ -1,8 +1,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 
-var contadorIds = 0;
+var contadorIds = 90;
 var links = [];
+var categoria = 13;
 
 function downloadImgs (etiqueta) {
 	
@@ -29,7 +30,7 @@ function getArticulos (url) {
 
 		   $("#elemento").html(parseData);
 		   for (var i = 0; i < $(".imageItem").length; i++) {
-		   		downloadImgs ($(".imageItem a")[i]);
+		   		//downloadImgs ($(".imageItem a")[i]);
 		   }
 
 		   titleData = String(data)
@@ -38,7 +39,7 @@ function getArticulos (url) {
 		   
 		   priceData = String(data)
 						.split('<span data-sc-regularprice="true" itemprop="price">')[1]
-						.split('</span>')[0];
+						.split('</span>')[0].trim().slice(0,-7);
 
 			sql(titleData, priceData);
 
@@ -51,38 +52,43 @@ function sql (titulo, precio) {
 
 	//el 4 titulo es titulo_url!!!!!!!!!!!!!!!
 	//ir sumando a contador ids
+	contadorIds++;
+	$("#resultado").append('INSERT INTO `eov3_posts` VALUES ('+contadorIds+',1,now(),now(),"'+titulo+'","'+titulo+'","'+titulo+'","publish","open","closed","","'+titulo.trim().split(" ").join("-")+'","","",now(),now(),"",0,"http://wordpressdj.esy.es/?post_type=product&p='+contadorIds+'",0,"product","",0);'+"<br>");
 
-	$("#resultado").append('INSERT INTO `eov3_posts`(`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES ('+contadorIds+',1,now(),now(),'+titulo+','+titulo+','+titulo+',"publish","open","closed","",'+titulo+'"","",now(),now(),"",0,"http://wordpressdj.esy.es/?post_type=product&#038;p=34",0,"product","",0)');
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_edit_last",1);'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_edit_lock","1:1");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_visibility","visible");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_stock_status","instock");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_thumbnail_id","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"total_sales",0);'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_downloadable","no");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_virtual","no");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_tax_status","taxable");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_tax_class","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_purchase_note","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_featured","no");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_weight","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_length","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_width","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_height","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_sku","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_product_attributes","a:0:{}");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_regular_price","'+precio+'");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_sale_price","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_sale_price_dates_from","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_price","'+precio+'");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_sold_individually","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_manage_stock","no");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_backorders","no");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_stock","");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_upsell_ids","a:0:{}");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_crosssell_ids","a:0:{}");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_postmeta` VALUES (null,'+contadorIds+',"_product_version","2.6.8");'+"<br>");
+	$("#resultado").append('INSERT INTO `eov3_term_relationships` VALUES ('+contadorIds+', '+categoria+', 0);'+"<br>");
+	$("#resultado").append("<p>");
 
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_edit_last",1)');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_edit_lock",1:1)');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_visibility","visible")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_stock_status","instock"');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_thumbnail_id","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"total_sales",0)');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_downloadable","no")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_virtual","no")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_tax_status","taxable"');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_tax_class","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_purchase_note","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_featured","no")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_weight","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_length","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_width","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_height","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sku","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_product_attributes","a:0:{}")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_regular_price",'+precio+') ');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sale_price","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sale_price_dates_from","") ');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_price",'+precio+')');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_sold_individually","")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_manage_stock","no") ');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_backorders","no") ');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_stock","") ');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_upsell_ids","a:0:{}") ');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_crosssell_ids","a:0:{}")');
-	$("#resultado").append('INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES (null,'+contadorIds+',"_product_version","2.6.8")');
+	
+
 
 }
 
@@ -101,14 +107,13 @@ function getLinks (url) {
 		   for (var i = 0; i < $(".productLink").length; i+=2) {
 		   		links.push($(".productLink")[i].href);
 		   		getArticulos ($(".productLink")[i].href);
-		   		if(i> 10) return;
 		   }
 		}
 	});
 
 }
 
-getLinks("http://www.c-and-a.com/es/es/shop/mujer/chaquetas-y-abrigos/ver-todo");
+getLinks("http://www.c-and-a.com/es/es/shop/mujer/faldas/ver-todo");
 
 </script>
 
@@ -124,245 +129,3 @@ getLinks("http://www.c-and-a.com/es/es/shop/mujer/chaquetas-y-abrigos/ver-todo")
 	<div id="resultado"></div>
 </body>
 </html>
-
-<!--INSERT INTO `eov3_posts`(`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) 
-VALUES 
-(null,
-1,
-now(),
-now(),
-"Titulo",
-"Titulo",
-"Titulo",
-"publish",
-"open",
-"closed",
-"",
-"titulo-url",
-"",
-"",
-now(),
-now(),
-"",
-0,
-"http://wordpressdj.esy.es/?post_type=product&#038;p=34",
-0,
-"product",
-"",
-0)-->
-
-
-
-<!--INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_edit_last",
-1)
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_edit_lock",
-1:1)
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_visibility",
-"visible")
- 
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_stock_status",
-"instock")
-  
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_thumbnail_id",
-"")
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"total_sales",
-0) 
-  
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_downloadable",
-"no")
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_virtual",
-"no")
-  
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_tax_status",
-"taxable") 
-
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_tax_class",
-"") 
-  
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_purchase_note",
-"")
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_featured",
-"no")
- 
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_weight",
-"")
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_length",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_width",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_height",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_sku",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_product_attributes",
-"a:0:{}") 
-  
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_regular_price",
-"20,99")  
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_sale_price",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_sale_price_dates_from",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_sale_price_dates_to",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_price",
-"20,99") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_sold_individually",
-"") 
-    
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_manage_stock",
-"no") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_backorders",
-"no")  
-  
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_stock",
-"") 
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_upsell_ids",
-"a:0:{}")  
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_crosssell_ids",
-"a:0:{}")  
-
-INSERT INTO `eov3_postmeta`(`meta_id`, `post_id`, `meta_key`, `meta_value`) 
-VALUES 
-(null,
-"postId",
-"_product_version",
-"2.6.8") -->
-
-<!-- http://www.c-and-a.com/ -->
