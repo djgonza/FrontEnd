@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+<h1>Alquiler Coche</h1>
+	<form action="" name="form">
+		
+		<select name="marca" id="" size="7">
+			<option value="ford">Ford</option>
+			<option value="citroen">Citroen</option>
+			<option value="seat">Seat</option>
+			<option value="toyota">Toyota</option>
+			<option value="fiat">Fiat</option>
+		</select><br>
+		<select name="tipo" id="">
+			<option value="50">Utilitario</option>
+			<option value="65">Compacto</option>
+			<option value="100">Berlina</option>
+			<option value="200">Monovolumen</option>
+			<option value="300">Furgoneta</option>
+		</select><br>
+		<label for="">Nombre</label>
+		<input type="text" name="nombre"><br>
+		<label for="">Edad</label>
+		<input type="number" name="edad"><br>
+		<label for="">Fecha Actual</label>
+		<input type="text" name="fActual"><br>
+
+		<label for="">Dias de alquiler</label>
+		<input type="button" name="dMas" value="+">
+		<input type="number" name="dAlquiler" value="1">
+		<input type="button" name="dMenis" value="-"><br>
+
+		<label for="">Fecha Entrega</label>
+		<input type="text" name="fEntrega"><br>
+
+		<label for="">Accesorios:</label>
+		<input type="checkbox" name="acc[]" value="12">Silla Niño
+		<input type="checkbox" name="acc[]" value="20">WIFI
+		<input type="checkbox" name="acc[]" value="30">GPS
+		<input type="checkbox" name="acc[]" value="24">Conductor Ocasional<br>
+
+		<label for="">Acepto los Terminos</label>
+		<input type="checkbox" name="terminos" value="true"><br>
+
+		<input type="button" name="alquilar" value="Alquilar"><br>
+
+	</form>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/main.js"></script>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	
+	<h1>R n R</h1>
+
+	<form action="">
+		
+		<label for="">Socio Numero</label>
+		<input type="text" name="nSocio" value=""><br>
+		
+		<label for="">Tarifa:</label>
+		<input type="radio" checked="checked" name="hora" value="1">1 Hora
+		<input type="radio" name="hora" value="1.5">1,5 Horas
+		<input type="radio" name="hora" value="2">2 Horas
+		<br>
+
+		<label for="">Extras</label>
+		<input type="checkbox" name="extra[]">Bateria
+		<input type="checkbox" name="extra[]">Luz
+		<input type="checkbox" name="extra[]">Grabacion
+		<br>
+
+		<label for="">Dias de reserva</label>
+		<select name="dReserva" id="" multiple="multiple">
+			<option value="">Lunes</option>
+			<option value="">Martes</option>
+			<option value="">Miercoles</option>
+			<option value="">Jueves</option>
+			<option value="">Viernes</option>
+			<option value="">Sabado</option>
+			<option value="">Domingo</option>
+		</select><br>
+
+		<label for="">Email</label>
+		<input type="text" name="Email"><br>
+
+		<label for="">Tengo un codigo Promocional</label>
+		<input type="checkbox" name="tengoCodigo"><br>
+
+		<label for="">Codigo</label>
+		<input type="text" name="codigo"><br>
+
+		<input type="button" name="reservar" value="RESERVAR">
+
+	</form>
+
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/main.js"></script>
+</html>
